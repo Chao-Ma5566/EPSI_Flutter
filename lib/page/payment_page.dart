@@ -179,7 +179,10 @@ class PaymentDetail extends StatelessWidget {
                       Spacer(),
                       Column(
                         children: [
-                          Icon(Icons.chevron_right)
+                          Padding(
+                            padding: EdgeInsets.only(right: 18.0),
+                            child: Icon(Icons.chevron_right),
+                          )
                         ],
                       )
                     ],
@@ -202,13 +205,15 @@ class MethodPayment extends StatefulWidget {
 }
 
 class _MethodPaymentState extends State<MethodPayment> {
+
+  String _selectedMethod = "";
+
+  void getPaymentMethod(name) {
+    setState(() { _selectedMethod = name; });
+  }
   @override
   Widget build(BuildContext context) {
-    String selectedMethod = "";
 
-    void getApple() {
-      setState(() { selectedMethod = "Apple"; });
-    }
 
     return Column(
       children: [
@@ -227,23 +232,34 @@ class _MethodPaymentState extends State<MethodPayment> {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Row(
                   children: [
-                    selectedMethod.isNotEmpty?Text("$selectedMethod"):Text(""),
-                    selectedMethod == "Apple"? Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: Colors.red),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
-                        child: IconButton(
-                          onPressed: ()=> selectedMethod = "",
-                          icon: Icon(
-                            FontAwesomeIcons.ccAmazonPay,
-                            color: Colors.red,
-                            size: 35,
+                    _selectedMethod == "Apple"? Stack(
+                      children: [
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Theme.of(context).colorScheme.error),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
+                            child: IconButton(
+                              onPressed: ()=> getPaymentMethod(""),
+                              icon: Icon(
+                                FontAwesomeIcons.ccApplePay,
+                                color: Theme.of(context).colorScheme.error,
+                                size: 35,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.check,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                      ],
                     ):
                     Card(
                           elevation: 0,
@@ -253,7 +269,7 @@ class _MethodPaymentState extends State<MethodPayment> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
                             child: IconButton(
-                              onPressed: ()=> getApple(),
+                              onPressed: ()=> getPaymentMethod("Apple"),
                               icon: Icon(
                                 FontAwesomeIcons.ccApplePay,
                                 size: 35,
@@ -262,7 +278,35 @@ class _MethodPaymentState extends State<MethodPayment> {
                           ),
                     ),
                     Spacer(),
-                    Card(
+                    _selectedMethod == "Visa"? Stack(
+                      children: [
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Theme.of(context).colorScheme.error),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
+                            child: IconButton(
+                              onPressed: ()=> getPaymentMethod(""),
+                              icon: Icon(
+                                FontAwesomeIcons.ccVisa,
+                                color: Theme.of(context).colorScheme.error,
+                                size: 35,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.check,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                      ],
+                    ):Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
                         side: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -270,7 +314,7 @@ class _MethodPaymentState extends State<MethodPayment> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
                         child: IconButton(
-                          onPressed: ()=> selectedMethod = "Visa",
+                          onPressed: ()=> getPaymentMethod("Visa"),
                           icon: Icon(
                             FontAwesomeIcons.ccVisa,
                             size: 35,
@@ -279,7 +323,35 @@ class _MethodPaymentState extends State<MethodPayment> {
                       ),
                     ),
                     Spacer(),
-                    Card(
+                    _selectedMethod == "Master"? Stack(
+                      children: [
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Theme.of(context).colorScheme.error),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
+                            child: IconButton(
+                              onPressed: ()=> getPaymentMethod(""),
+                              icon: Icon(
+                                FontAwesomeIcons.ccMastercard,
+                                color: Theme.of(context).colorScheme.error,
+                                size: 35,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.check,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                      ],
+                    ):Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
                         side: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -287,7 +359,7 @@ class _MethodPaymentState extends State<MethodPayment> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
                         child: IconButton(
-                          onPressed: ()=> selectedMethod = "Master",
+                          onPressed: ()=> getPaymentMethod("Master"),
                           icon: Icon(
                             FontAwesomeIcons.ccMastercard,
                             size: 35,
@@ -296,7 +368,35 @@ class _MethodPaymentState extends State<MethodPayment> {
                       ),
                     ),
                     Spacer(),
-                    Card(
+                    _selectedMethod == "Paypal"? Stack(
+                      children: [
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Theme.of(context).colorScheme.error),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
+                            child: IconButton(
+                              onPressed: ()=> getPaymentMethod(""),
+                              icon: Icon(
+                                FontAwesomeIcons.ccPaypal,
+                                color: Theme.of(context).colorScheme.error,
+                                size: 35,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.check,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                      ],
+                    ):Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),
                         side: BorderSide(color: Theme.of(context).colorScheme.outline),
@@ -304,7 +404,7 @@ class _MethodPaymentState extends State<MethodPayment> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 12.0,left: 12,top: 12,right:16),
                         child: IconButton(
-                          onPressed: ()=> selectedMethod = "Paypal",
+                          onPressed: ()=> getPaymentMethod("Paypal"),
                           icon: Icon(
                             FontAwesomeIcons.ccPaypal,
                             size: 35,
@@ -322,22 +422,28 @@ class _MethodPaymentState extends State<MethodPayment> {
           "En cliquant sur Confirmer l’achat , vous acceptez les Conditions de vente de EPSI Shop International. Besoin d’aide ? Désolé on peut rien faire.\nEn poursuivant, vous acceptez les Conditions d’utilisation du fournisseur de paiement CoffeDis.",
           style: TextStyle(fontSize: 12),
         ),
-        Padding(
+         Padding(
           padding: const EdgeInsets.only(top: 10, bottom: 5.0),
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: _selectedMethod.isNotEmpty?() {
               final snackBar = SnackBar(
                 content: const Text('Votre commande est validée'),
                 action: SnackBarAction(
                   label: 'Undo',
                   onPressed: () {
-                    // Some code to undo the change.
                   },
                 ),
               );
-
-              // Find the ScaffoldMessenger in the widget tree
-              // and use it to show a SnackBar.
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }: (){
+              final snackBar = SnackBar(
+                content: const Text('Il faut choisir une méthode de paiement'),
+                action: SnackBarAction(
+                  label: 'Undo',
+                  onPressed: () {
+                  },
+                ),
+              );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
             child: const Text('Confirmé la commande'),

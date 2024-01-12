@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'bo/ImageSection.dart';
-import 'bo/cart.dart';
+import '../bo/ImageSection.dart';
+import '../bo/cart.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends StatelessWidget {
   const CartPage({super.key, required this.title});
-
   final String title;
 
-  @override
-  State<CartPage> createState() => _MyCartPageState();
-}
-
-class _MyCartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +17,7 @@ class _MyCartPageState extends State<CartPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Padding(
           padding: const EdgeInsets.only(right: 50.0),
-          child: Center(child: Text(widget.title)),
+          child: Center(child: Text(title)),
         ),
       ),
       body: context.watch<Cart>().items.length > 0
@@ -108,15 +103,12 @@ class ListCart extends StatelessWidget {
                         ),),
 
                       trailing: TextButton(
-                        child: const Card(
-                          color: Colors.red,
+                        child: Card(
+                          color: Theme.of(context).colorScheme.inversePrimary,
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0,bottom: 5, left:10, right:10),
                             child: Text(
                                 "X",
-                                style: TextStyle(
-                                      color: Colors.white
-                                )
                             ),
                           ),
                         ),
@@ -126,6 +118,13 @@ class ListCart extends StatelessWidget {
                   )
                   ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: ElevatedButton(
+                onPressed: () => context.go('/payment'),
+                child: Text(' Procéder au paiment'),
+              ),
+            )
           ],
         );
       }

@@ -24,6 +24,24 @@ class Cart extends ChangeNotifier{
     return sumString;
   }
 
+  String getTVA(){
+    num sum = 0;
+    for (Produit item in _items){
+      sum += item.prix;
+    }
+    String tvaString = "${(sum*0.2).toStringAsFixed(2)}€";
+    return tvaString;
+  }
+
+  String getTotal(){
+    num sum = 0;
+    for (Produit item in _items){
+      sum += item.prix;
+    }
+    String tvaString = "${(sum*1.2).toStringAsFixed(2)}€";
+    return tvaString;
+  }
+
   void removeAll(){
     _items.clear();
     notifyListeners();
